@@ -1,20 +1,23 @@
 from dataclasses import dataclass, field
+from typing import List
+
 
 @dataclass
 class ChristmasPresent:
-    Name:str
-    Price:float
+    Name: str
+    Price: float
+
 
 @dataclass
 class Person:
-    Name:str
-    Presenter = field(default_factory=list)
+    Name: str
+    Presenter: List[ChristmasPresent] = field(default_factory=list)
     
-    def AddPresent(self,present):
+    def AddPresent(self, present: ChristmasPresent):
         self.Presenter.append(present)
     
-    def GetTotal(self):
+    def GetTotal(self) -> float:
         summa = 0
         for x in self.Presenter:
-            summa = summa + x.Price
+            summa += x.Price
         return summa
