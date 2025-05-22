@@ -2,13 +2,10 @@ name: CICD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "feature/-create-pipeline" ]
   pull_request:
-    branches: [ "main" ]
-permissions:
-  id-token: write
-  pages: write
-  contents: read
+    branches: [ "main", "feature/-create-pipeline" ]
+
   
 jobs:
   build:
@@ -19,27 +16,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!      
+      - name: Run tests
+        run: 
+            python -m unittest discover -s tests -p '*Tests.py' -v    
 
         
-      # lägg till create csv file (glöm inte pip install)
-      # lägg till Create JSON file
-      # Köra enhetstester     
-      #python .\calculateTests.py 
-      - name: Copy to dist
-        run: |
-          mkdir dist
-          cp index.html dist/index.html
-          cp data.json dist/data.json
-          cp script.js dist/script.js      
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'dist'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        
+   
