@@ -18,7 +18,16 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run tests
         run: 
-            python -m unittest discover -s tests -p '*Tests.py' -v    
+            python -m unittest discover -s tests -p '*Tests.py' -v
+
+      - name: Tests Success Message
+        run: echo All tests passed
+        
+      - name: Verify HTML
+        run: 
+            grep "<h1>Code is running</h1>" index.html
+
+            
 
         
    
